@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.ColorFilter;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.text.InputType;
 import android.util.AttributeSet;
@@ -78,6 +79,9 @@ public class MyPop extends PopupWindow {
 			setHeight(300);
 			// 为弹出框设定自定义的布局
 			setContentView(contentView);
+			
+			//设置一个空图片，否则背景是灰色的
+			setBackgroundDrawable(new BitmapDrawable());
 
 			final EditText editText = (EditText) contentView.findViewById(R.id.editText1);
 			// 设定当你点击editText时，弹出的输入框是啥样子的。这里设置默认为数字输入哦，这时候你会发现你输入非数字的东西是不行的哦
