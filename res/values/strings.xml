@@ -4,5 +4,8 @@
     <string name="app_name">MyPopupWindow</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="fullscren">全屏</string>
+    <string name="back">返回</string>
+    <string name="btn_popview">pop view</string>
 
 </resources>

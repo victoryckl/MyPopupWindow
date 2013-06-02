@@ -15,7 +15,7 @@
         android:text="@string/hello_world" />
 
     <Button
-        android:id="@+id/button_popupwindow"
+        android:id="@+id/btn_popupwindow"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/textView1"
@@ -23,5 +23,23 @@
         android:layout_marginLeft="25dp"
         android:layout_marginTop="24dp"
         android:text="PopupWindow" />
+
+    <Button
+        android:id="@+id/btn_popview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/button_popupwindow"
+        android:layout_below="@+id/btn_popupwindow"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="27dp"
+        android:text="@string/btn_popview" />
+
+    <AbsoluteLayout
+        android:id="@+id/absolutelayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true" >
+    </AbsoluteLayout>
 
 </RelativeLayout>
