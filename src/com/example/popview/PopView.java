@@ -1,7 +1,5 @@
 package com.example.popview;
 
-import com.example.mypopupwindow.R;
-
 import android.content.Context;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -17,6 +15,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.resid.ResourcesId;
+
 public class PopView extends LinearLayout {
 
 	private static final String TAG = "PopView";
@@ -26,6 +26,7 @@ public class PopView extends LinearLayout {
 	private Button mBtnBack;
 	private WebView mWebView;
 	private ViewGroup mParent;
+	private int mBtnFullscreenId, mBtnBackId;
 
 	public PopView(Context context) {
 		super(context);
@@ -50,21 +51,26 @@ public class PopView extends LinearLayout {
 	
 	public void init(String word, String explain) {
 		Log.i(TAG, "init()");
+		ResourcesId res = ResourcesId.getInstance(mContext);
 
 		bIsFullscreen = false;
 		
 		mParent = getParent(this);
 		
-		mTxtWord = (TextView)findViewById(R.id.txt_word);
+		int id = res.getResourcesId("id", "txt_word");
+		mTxtWord = (TextView)findViewById(id);
 		mTxtWord.setText(word);
 		
-		mBtnFullscreen = (Button)findViewById(R.id.btn_fullscreen);
+		mBtnFullscreenId = res.getResourcesId("id", "btn_fullscreen");
+		mBtnFullscreen = (Button)findViewById(mBtnFullscreenId);
 		mBtnFullscreen.setOnClickListener(mBtnOnClickListener);
 		
-		mBtnBack = (Button)findViewById(R.id.btn_back);
+		mBtnBackId = res.getResourcesId("id", "btn_back");
+		mBtnBack = (Button)findViewById(mBtnBackId);
 		mBtnBack.setOnClickListener(mBtnOnClickListener);
-		
-		mWebView = (WebView)findViewById(R.id.webview_explain);
+
+		id = res.getResourcesId("id", "webview_explain");
+		mWebView = (WebView)findViewById(id);
 		mWebView.loadData(explain, "text/html", "uft-8");
 		
 		dragView(this);
@@ -98,7 +104,6 @@ public class PopView extends LinearLayout {
 //		Log.i(TAG, "" + event);
 		switch (keyCode) {
 		case KeyEvent.KEYCODE_BACK:
-			Toast.makeText(mContext, "PopView.onKeyUp()", Toast.LENGTH_SHORT).show();
 			dismiss();
 			return true;
 		default:
@@ -107,19 +112,27 @@ public class PopView extends LinearLayout {
 		return super.onKeyUp(keyCode, event);
 	}
 
+	public void onResume() {
+		if (mWebView != null) {
+			mWebView.resumeTimers();
+		}
+	}
+	
+	public void onPause() {
+		if (mWebView != null) {
+			mWebView.pauseTimers();
+		}
+	}
+	
 	private OnClickListener mBtnOnClickListener = new View.OnClickListener() {
 		@Override
 		public void onClick(View v) {
-			switch (v.getId()) {
-			case R.id.btn_fullscreen:
+			int id = v.getId();
+			if (id == mBtnFullscreenId) {
 				fullscreen();
-				break;
-			case R.id.btn_back:
+			}
+			else if (id == mBtnBackId) {
 				dismiss();
-				break;
-				
-			default:
-				break;
 			}
 		}
 	};

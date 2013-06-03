@@ -3,6 +3,7 @@ package com.example.mypopupwindow;
 import com.example.pop.MyPop;
 import com.example.popview.PopView;
 import com.example.popview.PopView.OnDismissListener;
+import com.example.popview.PopViewWrapper;
 
 import android.R.bool;
 import android.os.Bundle;
@@ -25,8 +26,6 @@ public class MyPopupWindow extends Activity {
 	private static final String TAG = null;
 	private Button mBtnPopup, mBtnPopview;
 	private Display mDisplay;
-	private AbsoluteLayout mAbsoluteLayout;
-	private PopView mPopView;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -51,8 +50,6 @@ public class MyPopupWindow extends Activity {
 		
 		mBtnPopview = (Button)findViewById(R.id.btn_popview);
 		mBtnPopview.setOnClickListener(mBtnClickListener);
-		
-		mAbsoluteLayout = (AbsoluteLayout)findViewById(R.id.absolutelayout);
 	}
 	
 	private OnClickListener mBtnClickListener = new OnClickListener() {
@@ -63,7 +60,7 @@ public class MyPopupWindow extends Activity {
 				showPop();
 				break;
 			case R.id.btn_popview:
-				showPopView();
+				showPopView("hello", getHtml());
 				break;
 			default:
 				break;
@@ -82,42 +79,10 @@ public class MyPopupWindow extends Activity {
 		pop.showAtLocation(getWindow().getDecorView(), Gravity.CENTER, 0, 0);
 	}
 
-	private boolean bIsShowing = false;
-	private void showPopView() {
-		if (!bIsShowing) {
-			bIsShowing = true;
-			
-			mAbsoluteLayout.removeAllViews();
-			mAbsoluteLayout.setVisibility(View.VISIBLE);
-			mAbsoluteLayout.setOnClickListener(new OnClickListener() {
-				@Override
-				public void onClick(View v) {
-					Log.i("AbsoluteLayou", "onClick()");
-				}
-			});
-			
-			mPopView = (PopView) LayoutInflater.from(this).inflate(R.layout.popview, null);
-			mAbsoluteLayout.addView(mPopView);
-			
-			AbsoluteLayout.LayoutParams lp = (AbsoluteLayout.LayoutParams)mPopView.getLayoutParams();
-			lp.width = 600;
-			lp.height = 462;
-			lp.x = (mAbsoluteLayout.getWidth() - lp.width)/2;
-			lp.y = (mAbsoluteLayout.getHeight() - lp.height)/2;
-			mPopView.setLayoutParams(lp);
-			
-			mPopView.init("hello", getHtml());
-			mPopView.setOnDismissListener(new OnDismissListener() {
-				@Override
-				public void onDismiss() {
-					mPopView = null;
-					mAbsoluteLayout.setVisibility(View.GONE);
-					mAbsoluteLayout.setOnClickListener(null);
-					Toast.makeText(getApplicationContext(), "onDismiss()", Toast.LENGTH_SHORT).show();
-					bIsShowing = false;
-				}
-			});
-		}
+	//---------------------------
+	private PopViewWrapper mPopViewWrapper = new PopViewWrapper(this);
+	private void showPopView(String word, String html) {
+		mPopViewWrapper.showPopView(word, html);
 	}
 	
 	private String getHtml() {
@@ -145,11 +110,7 @@ public class MyPopupWindow extends Activity {
 	
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		boolean ret = false;
-		if (mPopView != null) {
-			ret = mPopView.onKeyDown(keyCode, event);
-		}
-		if (ret) {
+		if (mPopViewWrapper.onKeyDown(keyCode, event)) {
 			return true;
 		}
 		return super.onKeyDown(keyCode, event);
@@ -157,13 +118,21 @@ public class MyPopupWindow extends Activity {
 	
 	@Override
 	public boolean onKeyUp(int keyCode, KeyEvent event) {
-		boolean ret = false;
-		if (mPopView != null) {
-			ret = mPopView.onKeyUp(keyCode, event);
-		}
-		if (ret) {
+		if (mPopViewWrapper.onKeyUp(keyCode, event)) {
 			return true;
 		}
 		return super.onKeyUp(keyCode, event);
+	}
+	
+	@Override
+	protected void onResume() {
+		mPopViewWrapper.onResume();
+		super.onResume();
+	}
+	
+	@Override
+	protected void onPause() {
+		mPopViewWrapper.onPause();
+		super.onPause();
 	}
 }
