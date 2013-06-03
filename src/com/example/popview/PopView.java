@@ -8,6 +8,8 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
+import android.webkit.WebSettings;
+import android.webkit.WebSettings.PluginState;
 import android.webkit.WebView;
 import android.widget.AbsoluteLayout;
 import android.widget.Button;
@@ -71,9 +73,18 @@ public class PopView extends LinearLayout {
 
 		id = res.getResourcesId("id", "webview_explain");
 		mWebView = (WebView)findViewById(id);
-		mWebView.loadData(explain, "text/html", "uft-8");
+		webviewSetting(mWebView);
+//		mWebView.loadData(explain, "text/html", "uft-8");
+//		mWebView.loadUrl("file:///android_asset/flash.html");
+		mWebView.loadDataWithBaseURL("about:blank", explain, "text/html", "uft-8", null);
 		
 		dragView(this);
+	}
+	
+	private void webviewSetting(WebView webview) {
+		WebSettings s = webview.getSettings();
+		s.setJavaScriptEnabled(true);
+		s.setPluginState(PluginState.ON);
 	}
 	
 	private ViewGroup getParent(View view) {
