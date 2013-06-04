@@ -35,7 +35,8 @@ public class PopViewWrapper {
 			mAbsoluteLayout.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View v) {
-					Log.i("AbsoluteLayou", "onClick()");
+//					Log.i("AbsoluteLayou", "onClick()");
+					mPopView.dismiss();
 				}
 			});
 			

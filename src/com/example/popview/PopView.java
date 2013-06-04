@@ -206,6 +206,9 @@ public class PopView extends LinearLayout {
 			@Override
 			public boolean onTouch(View v, MotionEvent event) {
 //				Log.i(TAG, "onTouch("+event+")");
+				if (bIsFullscreen) {
+					return true;
+				}
 				switch (event.getAction()) {
 				case MotionEvent.ACTION_DOWN:
 					x = (int) event.getX();

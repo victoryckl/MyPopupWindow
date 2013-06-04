@@ -1,5 +1,13 @@
 package com.example.mypopupwindow;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.StringBufferInputStream;
+import java.io.StringReader;
+
 import com.example.pop.MyPop;
 import com.example.popview.PopView;
 import com.example.popview.PopView.OnDismissListener;
@@ -86,57 +94,25 @@ public class MyPopupWindow extends Activity {
 	}
 	
 	private String getHtml() {
-		String html = "<html>"
-				+"\n<head>"
-				+"\n	<meta http-equiv='Content-Type' content='text/html; charset=utf-8' />"
-				+"\n</head>"
-				+"\n<body>"
-				+"\n<div>"
-				+"\n	<p>test text,test text,test text,test text,test text,test text,test text,test text,test text,test text,test text,test text,test text,test text,"
-				+"\n	<p>test text,test text,test text,test text,test text,test text,test text,test text,test text,test text,test text,test text,test text,test text,test text,test text,test text,test text,test text,test text,test text,test text,test text,test text,test text,test text,test text,test text,"
-				+"\n	<p>test text,test text,test text,test text,test text,test text,test text,test text,test text,test text,test text,test text,test text,test text,test text,test text,test text,test text,test text,test text,test text,test text,test text,test text,test text,test text,test text,test text,"
-				+"\n	<p>test text,test text,test text,test text,test text,test text,test text,test text,test text,test text,test text,test text,test text,test text,test text,test text,test text,test text,test text,test text,test text,test text,test text,test text,test text,test text,test text,test text,"
-				+"\n	<p>test text,test text,test text,test text,test text,test text,test text,test text,test text,test text,test text,test text,test text,test text,test text,test text,test text,test text,test text,test text,test text,test text,test text,test text,test text,test text,test text,test text,"
-				+"\n	<p>test text,test text,test text,test text,test text,test text,test text,test text,test text,test text,test text,test text,test text,test text,test text,test text,test text,test text,test text,test text,test text,test text,test text,test text,test text,test text,test text,test text,	"
-				+"\n	"
-				+"\n	<table style='float:right; border:1px solid #00F;' width='50%' height='40%' cellpadding='0' cellspacing='0'> "
-				+"\n		<tr>"
-				+"\n		"
-				+"\n			<td align='center' valign='middle'>"
-				+"\n			<object type='application/x-shockwave-flash'"
-				+"\n				id='myFlashMovie' "
-				+"\n				align='middle'"
-				+"\n				data='file:///android_asset/g.swf'"
-				+"\n				wmode=''"
-				+"\n				height='100%' "
-				+"\n				width='100%'>"
-				+"\n					<param name='movie' value='file:///android_asset/g.swf'>"
-				+"\n					<param name='quality' value='height'>"
-				+"\n					<param name='wmode' value='window'>"
-				+"\n					"
-				+"\n					<param name='allowScriptAccess' value='always'>"
-				+"\n					<param name='menu' value='false'>"
-				+"\n					"
-				+"\n					<param name='allowFullScreen' value='true'>"
-				+"\n					<div style='height: 100%; margin: 0; padding: 0; '> "
-				+"\n						<div id='center'> "
-				+"\n							<center>"
-				+"\n								<br>"
-				+"\n								<h3><font color='#C23352'>播放失败!</font></h3>"
-				+"\n								<h5>请安装Flash插件，或者重新打开一次</h5>"
-				+"\n							</center>"
-				+"\n						</div> "
-				+"\n					</div>"
-				+"\n			</object>"
-				+"\n"
-				+"\n			</script>"
-				+"\n			</td> "
-				+"\n		</tr> "
-				+"\n	</table> "
-				+"\n</div>"
-				+"\n</body>"
-				+"\n</html>"
-				+"\n";
+		String html = "";
+		InputStream in = null;
+		try {
+			in = getAssets().open("flash.html");
+			int len = in.available();
+			byte[] buffer = new byte[len];
+			in.read(buffer);
+			html = new String(buffer);
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (in != null) {
+					in.close();
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 		return html;
 	}
 	
