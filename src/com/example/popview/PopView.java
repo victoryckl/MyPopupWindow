@@ -29,6 +29,7 @@ public class PopView extends LinearLayout {
 	private WebView mWebView;
 	private ViewGroup mParent;
 	private int mBtnFullscreenId, mBtnBackId;
+	private int mStrFullscreenId, mStrSmallscreenId;
 
 	public PopView(Context context) {
 		super(context);
@@ -79,6 +80,9 @@ public class PopView extends LinearLayout {
 		mWebView.loadDataWithBaseURL("about:blank", explain, "text/html", "uft-8", null);
 		
 		dragView(this);
+		
+		mStrFullscreenId = res.getResourcesId("string", "fullscreen");
+		mStrSmallscreenId = res.getResourcesId("string", "smallscreen");
 	}
 	
 	private void webviewSetting(WebView webview) {
@@ -153,12 +157,14 @@ public class PopView extends LinearLayout {
 	private void fullscreen() {
 		if (bIsFullscreen) {
 			changeXYWH(this, orgX, orgY, orgW, orgH);
+			mBtnFullscreen.setText(mStrFullscreenId);
 		} else {
 			orgX = (int) getX();
 			orgY = (int) getY();
 			orgW = getWidth();
 			orgH = getHeight();
 			changeXYWH(this, 0, 0, mParent.getWidth(), mParent.getHeight());
+			mBtnFullscreen.setText(mStrSmallscreenId);
 		}
 		bIsFullscreen = !bIsFullscreen;
 	}
