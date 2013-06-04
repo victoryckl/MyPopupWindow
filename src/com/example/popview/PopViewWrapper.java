@@ -44,12 +44,7 @@ public class PopViewWrapper {
 			mPopView = (PopView) LayoutInflater.from(mActivity).inflate(id, null);
 			mAbsoluteLayout.addView(mPopView);
 			
-			AbsoluteLayout.LayoutParams lp = (AbsoluteLayout.LayoutParams)mPopView.getLayoutParams();
-			lp.width = 600;
-			lp.height = 462;
-			lp.x = (mAbsoluteLayout.getWidth() - lp.width)/2;
-			lp.y = (mAbsoluteLayout.getHeight() - lp.height)/2;
-			mPopView.setLayoutParams(lp);
+			mPopView.setLayoutParams(calculateParams((AbsoluteLayout.LayoutParams)mPopView.getLayoutParams()));
 			
 			mPopView.init(word, explain);
 			mPopView.setOnDismissListener(new OnDismissListener() {
@@ -62,6 +57,31 @@ public class PopViewWrapper {
 				}
 			});
 		}
+	}
+
+	private int wMax = 600, wMin = 480;
+	private int hMax = 600, hMin = 480;
+	private AbsoluteLayout.LayoutParams calculateParams(AbsoluteLayout.LayoutParams lp) {
+		int w = mAbsoluteLayout.getWidth();
+		int h = mAbsoluteLayout.getHeight();
+		
+		if (w > wMax) {
+			w = wMax;
+		} else if (w > wMin) {
+			w = wMin;
+		}
+
+		if (h > hMax) {
+			h = hMax;
+		} else if (h > hMin) {
+			h = hMin;
+		}
+
+		lp.width = w;
+		lp.height = h;
+		lp.x = (mAbsoluteLayout.getWidth() - lp.width)/2;
+		lp.y = (mAbsoluteLayout.getHeight() - lp.height)/2;
+		return lp;
 	}
 	
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
