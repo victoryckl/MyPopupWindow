@@ -170,6 +170,7 @@ public class PopView extends LinearLayout {
 	}
 	
 	private void changeXYWH(View view, int x, int y, int w, int h) {
+//		Log.i(TAG, "x:" + x + ", y:" + y + ", w:" + w + ", h:" + h);
 		if (mParent != null) {
 			AbsoluteLayout.LayoutParams lp = (AbsoluteLayout.LayoutParams) view.getLayoutParams();
 			lp.width = w;

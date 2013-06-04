@@ -15,6 +15,7 @@
         android:label="@string/x_app_name"
         android:theme="@style/AppTheme" >
         <activity
+            android:configChanges="keyboardHidden|orientation|screenSize"
             android:name="com.example.mypopupwindow.MyPopupWindow"
             android:label="@string/x_app_name" >
             <intent-filter>

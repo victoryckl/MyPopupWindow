@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import android.app.Activity;
+import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.Display;
 import android.view.Gravity;
@@ -12,6 +14,7 @@ import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.example.pop.MyPop;
 import com.example.popview.PopViewWrapper;
