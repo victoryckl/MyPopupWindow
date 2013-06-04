@@ -1,33 +1,20 @@
 package com.example.mypopupwindow;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.StringBufferInputStream;
-import java.io.StringReader;
 
-import com.example.pop.MyPop;
-import com.example.popview.PopView;
-import com.example.popview.PopView.OnDismissListener;
-import com.example.popview.PopViewWrapper;
-
-import android.R.bool;
-import android.os.Bundle;
 import android.app.Activity;
-import android.util.Log;
+import android.os.Bundle;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.KeyEvent;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.webkit.WebView;
-import android.widget.AbsoluteLayout;
 import android.widget.Button;
-import android.widget.Toast;
+
+import com.example.pop.MyPop;
+import com.example.popview.PopViewWrapper;
 
 public class MyPopupWindow extends Activity {
 
@@ -53,10 +40,10 @@ public class MyPopupWindow extends Activity {
 	}
 
 	private void init() {
-		mBtnPopup = (Button)findViewById(R.id.btn_popupwindow);
+		mBtnPopup = (Button)findViewById(R.id.x_btn_popupwindow);
 		mBtnPopup.setOnClickListener(mBtnClickListener);
 		
-		mBtnPopview = (Button)findViewById(R.id.btn_popview);
+		mBtnPopview = (Button)findViewById(R.id.x_btn_popview);
 		mBtnPopview.setOnClickListener(mBtnClickListener);
 	}
 	
@@ -64,10 +51,10 @@ public class MyPopupWindow extends Activity {
 		@Override
 		public void onClick(View v) {
 			switch (v.getId()) {
-			case R.id.btn_popupwindow:
+			case R.id.x_btn_popupwindow:
 				showPop();
 				break;
-			case R.id.btn_popview:
+			case R.id.x_btn_popview:
 				showPopView("hello", getHtml());
 				break;
 			default:

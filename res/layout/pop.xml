@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/pop_bg" >
+    android:background="@drawable/x_pop_bg" >
 
     <EditText
         android:id="@+id/editText1"
@@ -13,19 +13,19 @@
     </EditText>
 
     <LinearLayout
-        android:id="@+id/linearLayout1"
+        android:id="@+id/x_linearLayout1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
 
         <Button
-            android:id="@+id/button1_sure"
+            android:id="@+id/x_button1_sure"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="确定" >
         </Button>
 
         <Button
-            android:id="@+id/button2_cancel"
+            android:id="@+id/x_button2_cancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="取消" >

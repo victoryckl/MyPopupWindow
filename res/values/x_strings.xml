@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="x_app_name">MyPopupWindow</string>
+    <string name="x_hello_world">Hello world!</string>
+    <string name="x_action_settings">Settings</string>
+    <string name="x_fullscreen">放大</string>
+    <string name="x_smallscreen">缩小</string>
+    <string name="x_back">返回</string>
+    <string name="x_btn_popview">pop view</string>
+
+</resources>

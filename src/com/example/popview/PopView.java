@@ -60,19 +60,19 @@ public class PopView extends LinearLayout {
 		
 		mParent = getParent(this);
 		
-		int id = res.getResourcesId("id", "txt_word");
+		int id = res.getResourcesId("id", "x_txt_word");
 		mTxtWord = (TextView)findViewById(id);
 		mTxtWord.setText(word);
 		
-		mBtnFullscreenId = res.getResourcesId("id", "btn_fullscreen");
+		mBtnFullscreenId = res.getResourcesId("id", "x_btn_fullscreen");
 		mBtnFullscreen = (Button)findViewById(mBtnFullscreenId);
 		mBtnFullscreen.setOnClickListener(mBtnOnClickListener);
 		
-		mBtnBackId = res.getResourcesId("id", "btn_back");
+		mBtnBackId = res.getResourcesId("id", "x_btn_back");
 		mBtnBack = (Button)findViewById(mBtnBackId);
 		mBtnBack.setOnClickListener(mBtnOnClickListener);
 
-		id = res.getResourcesId("id", "webview_explain");
+		id = res.getResourcesId("id", "x_webview_explain");
 		mWebView = (WebView)findViewById(id);
 		webviewSetting(mWebView);
 //		mWebView.loadData(explain, "text/html", "uft-8");
@@ -81,8 +81,8 @@ public class PopView extends LinearLayout {
 		
 		dragView(this);
 		
-		mStrFullscreenId = res.getResourcesId("string", "fullscreen");
-		mStrSmallscreenId = res.getResourcesId("string", "smallscreen");
+		mStrFullscreenId = res.getResourcesId("string", "x_fullscreen");
+		mStrSmallscreenId = res.getResourcesId("string", "x_smallscreen");
 	}
 	
 	private void webviewSetting(WebView webview) {

@@ -9,33 +9,33 @@
     tools:context=".MyPopupWindow" >
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/x_textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/hello_world" />
+        android:text="@string/x_hello_world" />
 
     <Button
-        android:id="@+id/btn_popupwindow"
+        android:id="@+id/x_btn_popupwindow"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView1"
-        android:layout_below="@+id/textView1"
+        android:layout_alignLeft="@+id/x_textView1"
+        android:layout_below="@+id/x_textView1"
         android:layout_marginLeft="25dp"
         android:layout_marginTop="24dp"
         android:text="PopupWindow" />
 
     <Button
-        android:id="@+id/btn_popview"
+        android:id="@+id/x_btn_popview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/button_popupwindow"
-        android:layout_below="@+id/btn_popupwindow"
+        android:layout_alignLeft="@+id/x_button_popupwindow"
+        android:layout_below="@+id/x_btn_popupwindow"
         android:layout_marginLeft="25dp"
         android:layout_marginTop="27dp"
-        android:text="@string/btn_popview" />
+        android:text="@string/x_btn_popview" />
 
     <AbsoluteLayout
-        android:id="@+id/absolutelayout"
+        android:id="@+id/x_absolutelayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentBottom="true"

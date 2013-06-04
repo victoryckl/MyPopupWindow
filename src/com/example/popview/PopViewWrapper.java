@@ -26,7 +26,7 @@ public class PopViewWrapper {
 			bIsShowing = true;
 			
 			if (mAbsoluteLayout == null) {
-				int id = ResourcesId.getResourcesId(mActivity, "id", "absolutelayout");
+				int id = ResourcesId.getResourcesId(mActivity, "id", "x_absolutelayout");
 				mAbsoluteLayout = (AbsoluteLayout)mActivity.findViewById(id);
 			}
 			
@@ -40,7 +40,7 @@ public class PopViewWrapper {
 				}
 			});
 			
-			int id = ResourcesId.getResourcesId(mActivity, "layout", "popview");
+			int id = ResourcesId.getResourcesId(mActivity, "layout", "x_popview");
 			mPopView = (PopView) LayoutInflater.from(mActivity).inflate(id, null);
 			mAbsoluteLayout.addView(mPopView);
 			
