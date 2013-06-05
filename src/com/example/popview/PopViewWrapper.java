@@ -100,8 +100,12 @@ public class PopViewWrapper {
 		if (mPopView != null) {
 			AbsoluteLayout.LayoutParams lp = (AbsoluteLayout.LayoutParams)mPopView.getLayoutParams();
 			lp = calculateParams(lp, parentW, parentH);
-			if ((mPopView.getWidth() != lp.width)
-					|| (mPopView.getHeight() != lp.height)) {
+			if (mPopView.getX() != lp.x ||
+					mPopView.getY() != lp.y ||
+					mPopView.getWidth() != lp.width || 
+					mPopView.getHeight() != lp.height) {
+//				String f = String.format("new position[(%d,%d),(%d,%d)]", lp.x, lp.y, lp.width, lp.height);
+//				Log.i(TAG, f);
 				mPopView.setLayoutParams(lp);
 			}
 		}
