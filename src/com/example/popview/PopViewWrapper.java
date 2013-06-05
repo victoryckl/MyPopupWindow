@@ -5,7 +5,9 @@ import android.content.IntentSender.SendIntentException;
 import android.content.res.Configuration;
 import android.os.Handler;
 import android.os.Message;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Display;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -129,15 +131,18 @@ public class PopViewWrapper {
 	private int wMax = 600, wMin = 480;
 	private int hMax = 600, hMin = 480;
 	private AbsoluteLayout.LayoutParams calculateParams(AbsoluteLayout.LayoutParams lp, int parentW, int parentH) {
-		int w = parentW;
-		int h = parentH;
+		DisplayMetrics m = getDisplayMetrics();
+		float ratio = (float)m.widthPixels / m.heightPixels;
 		
+		int w = parentW;
 		if (w > wMax) {
 			w = wMax;
 		} else if (w > wMin) {
 			w = wMin;
 		}
 
+		int h = (int)(w / ratio);
+		h = h < parentH ? h : parentH;
 		if (h > hMax) {
 			h = hMax;
 		} else if (h > hMin) {
@@ -178,5 +183,13 @@ public class PopViewWrapper {
 		if (mPopView != null) {
 			mPopView.onPause();
 		}
+	}
+	
+	private DisplayMetrics getDisplayMetrics() {
+		Display d = mActivity.getWindowManager().getDefaultDisplay();
+		DisplayMetrics m = new DisplayMetrics();
+		d.getMetrics(m);
+		Log.i(TAG, "display -> w:" + m.widthPixels + ", h:" + m.heightPixels);
+		return m;
 	}
 }
