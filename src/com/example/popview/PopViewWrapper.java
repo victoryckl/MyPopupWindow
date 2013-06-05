@@ -134,21 +134,40 @@ public class PopViewWrapper {
 		DisplayMetrics m = getDisplayMetrics();
 		float ratio = (float)m.widthPixels / m.heightPixels;
 		
-		int w = parentW;
-		if (w > wMax) {
-			w = wMax;
-		} else if (w > wMin) {
-			w = wMin;
-		}
+		int w,h;
 
-		int h = (int)(w / ratio);
-		h = h < parentH ? h : parentH;
-		if (h > hMax) {
-			h = hMax;
-		} else if (h > hMin) {
-			h = hMin;
+		if (ratio > 1.0) {
+			h = parentH;
+			if (h * 0.8 > hMax) {
+				h = hMax;
+//			} else if (h > hMax) {
+//				h = hMax;
+			} else if (h > hMin) {
+				h = hMin;
+			}
+			w = (int)(h * ratio);
+			w = w < parentW ? w : parentW;
+			if (w > wMax) {
+				w = wMax;
+			} else if (w > wMin) {
+				w = wMin;
+			}
+		} else {
+			w = parentW;
+			if (w > wMax) {
+				w = wMax;
+			} else if (w > wMin) {
+				w = wMin;
+			}
+			h = (int)(w / ratio);
+			h = h < parentH ? h : parentH;
+			if (h > hMax) {
+				h = hMax;
+			} else if (h > hMin) {
+				h = hMin;
+			}
 		}
-
+		
 		lp.width = w;
 		lp.height = h;
 		lp.x = (parentW - lp.width)/2;
