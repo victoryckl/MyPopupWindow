@@ -53,7 +53,7 @@ public class PopView extends LinearLayout {
 	}
 	
 	public void init(String word, String explain) {
-		Log.i(TAG, "init()");
+//		Log.i(TAG, "init()");
 		ResourcesId res = ResourcesId.getInstance(mContext);
 
 		bIsFullscreen = false;
@@ -167,6 +167,17 @@ public class PopView extends LinearLayout {
 			mBtnFullscreen.setText(mStrSmallscreenId);
 		}
 		bIsFullscreen = !bIsFullscreen;
+	}
+	
+	public void setOrgPosition(int ox, int oy, int ow, int oh) {
+		orgX = ox;
+		orgY = oy;
+		orgW = ow;
+		orgH = oh;
+	}
+	
+	public boolean isFullscreen() {
+		return bIsFullscreen;
 	}
 	
 	private void changeXYWH(View view, int x, int y, int w, int h) {

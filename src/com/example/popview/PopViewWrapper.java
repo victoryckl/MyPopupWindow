@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AbsoluteLayout;
 import android.widget.Toast;
+import android.widget.AbsoluteLayout.LayoutParams;
 
 import com.example.popview.PopView.OnDismissListener;
 import com.example.resid.ResourcesId;
@@ -99,12 +100,26 @@ public class PopViewWrapper {
 	private void setPopViewPosition(int parentW, int parentH) {
 		if (mPopView != null) {
 			AbsoluteLayout.LayoutParams lp = (AbsoluteLayout.LayoutParams)mPopView.getLayoutParams();
-			lp = calculateParams(lp, parentW, parentH);
-			if (mPopView.getX() != lp.x ||
-					mPopView.getY() != lp.y ||
-					mPopView.getWidth() != lp.width || 
-					mPopView.getHeight() != lp.height) {
-//				String f = String.format("new position[(%d,%d),(%d,%d)]", lp.x, lp.y, lp.width, lp.height);
+			AbsoluteLayout.LayoutParams orglp;
+			if (mPopView.isFullscreen()) {
+				lp.x = 0;
+				lp.y = 0;
+				lp.width = parentW;
+				lp.height = parentH;
+				
+				orglp = new AbsoluteLayout.LayoutParams(lp);
+				orglp = calculateParams(orglp, parentW, parentH);
+				mPopView.setOrgPosition(orglp.x, orglp.y, orglp.width, orglp.height);
+			} else {
+				lp = calculateParams(lp, parentW, parentH);
+			}
+			
+			if (mPopView.getX() != lp.x 
+					|| mPopView.getY() != lp.y
+					|| mPopView.getWidth() != lp.width
+					|| mPopView.getHeight() != lp.height) {
+//				String f = String.format("new position[(%d,%d),(%d,%d)]", lp.x,
+//						lp.y, lp.width, lp.height);
 //				Log.i(TAG, f);
 				mPopView.setLayoutParams(lp);
 			}
