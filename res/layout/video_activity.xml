@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <ScrollView 
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout 
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content"
+		    android:orientation="vertical" >"
+		    <EditText 
+		        android:id="@+id/x_edit_path"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:hint="@string/x_str_file_path"
+		        android:minWidth="200dip"/>"
+		    <Button 
+		        android:id="@+id/x_btn_choose_file"
+		        android:layout_width="wrap_content"
+		        android:layout_height="60dip"
+		        android:text="@string/x_choose_file"/>
+		    <Button 
+		        android:id="@+id/x_btn_call_system"
+		        android:layout_width="wrap_content"
+		        android:layout_height="60dip"
+		        android:text="@string/x_call_system"/>
+		
+		    <Button 
+		        android:id="@+id/x_btn_videoview"
+		        android:layout_width="wrap_content"
+		        android:layout_height="60dip"
+		        android:text="@string/x_videoview"/>
+		    
+		    <Button 
+		        android:id="@+id/x_btn_mediaplayer"
+		        android:layout_width="wrap_content"
+		        android:layout_height="60dip"
+		        android:text="@string/x_mediaplayer"/>
+		 </LinearLayout>
+	</ScrollView>
+</LinearLayout>
