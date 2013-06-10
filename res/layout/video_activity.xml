@@ -39,6 +39,11 @@
 		        android:layout_width="wrap_content"
 		        android:layout_height="60dip"
 		        android:text="@string/x_mediaplayer"/>
+		    <VideoView
+		        android:id="@+id/x_videoview"
+		        android:layout_width="match_parent"
+		        android:layout_height="300dip"
+		        android:layout_gravity="center_horizontal"/>
 		 </LinearLayout>
 	</ScrollView>
 </LinearLayout>

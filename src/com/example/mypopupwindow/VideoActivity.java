@@ -10,12 +10,15 @@ import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.MediaController;
 import android.widget.Toast;
+import android.widget.VideoView;
 
 public class VideoActivity extends Activity {
 	private static final int FILE_SELECT_CODE = 0;
 	private static final String TAG = "VideoActivity";
 	private EditText mEditFilePath;
+	private VideoView mVideoView;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +34,8 @@ public class VideoActivity extends Activity {
 		findViewById(R.id.x_btn_choose_file).setOnClickListener(mBtnClickListener);
 		
 		mEditFilePath = (EditText)findViewById(R.id.x_edit_path);
+		mVideoView = (VideoView)findViewById(R.id.x_videoview);
+		mVideoView.setMediaController(new MediaController(this));  
 	}
 	
 	private View.OnClickListener mBtnClickListener = new View.OnClickListener() {
@@ -41,6 +46,7 @@ public class VideoActivity extends Activity {
 				callSystemVideoPlayer();
 				break;
 			case R.id.x_btn_videoview:
+				callVideoViewPlayer();
 				break;
 			case R.id.x_btn_mediaplayer:
 				break;
@@ -54,10 +60,25 @@ public class VideoActivity extends Activity {
 	};
 
 	private void callSystemVideoPlayer() {
-		Uri uri = Uri.parse(mEditFilePath.getText().toString());
+		String path = getPath();
+		if (path == null) {
+			return;
+		}
+		Uri uri = Uri.parse(path);
 		Intent intent = new Intent(Intent.ACTION_VIEW);
 		intent.setDataAndType(uri, "video/mp4");
 		startActivity(intent);
+	}
+	
+	protected void callVideoViewPlayer() {
+		String path = getPath();
+		if (path == null) {
+			return;
+		}
+		Uri uri = Uri.parse(path);
+		mVideoView.setVideoURI(uri);  
+		mVideoView.start();  
+		mVideoView.requestFocus();  
 	}
 	
 	private void chooseFile() {
@@ -88,4 +109,17 @@ public class VideoActivity extends Activity {
 		super.onActivityResult(requestCode, resultCode, data);
 	}
 	
+	private String getPath() {
+		String path = null;
+
+		path = mEditFilePath.getText().toString();
+		if (path == null || path.length() <= 0) {
+			Toast.makeText(this, R.string.x_str_no_path, Toast.LENGTH_SHORT).show();
+			path = null;
+		} else {
+			Log.i(TAG, "getPath(): " + path);
+		}
+		
+		return path;
+	}
 }
