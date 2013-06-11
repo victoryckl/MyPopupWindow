@@ -23,7 +23,7 @@ public class VideoActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.video_activity);
+		setContentView(R.layout.x_video_activity);
 		
 		init();
 	}
@@ -49,6 +49,7 @@ public class VideoActivity extends Activity {
 				callVideoViewPlayer();
 				break;
 			case R.id.x_btn_mediaplayer:
+				callMediaPlayer();
 				break;
 			case R.id.x_btn_choose_file:
 				chooseFile();
@@ -79,6 +80,17 @@ public class VideoActivity extends Activity {
 		mVideoView.setVideoURI(uri);  
 		mVideoView.start();  
 		mVideoView.requestFocus();  
+	}
+	
+	protected void callMediaPlayer() {
+		String path = getPath();
+		if (path == null) {
+			return;
+		}
+		Intent intent = new Intent();
+		intent.putExtra("path", path);
+		intent.setClass(this, MediaPlayerVideo.class);
+		startActivity(intent);
 	}
 	
 	private void chooseFile() {

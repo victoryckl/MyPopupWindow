@@ -33,7 +33,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>            
         </activity>
-        	
+        <activity 
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:name="com.example.mypopupwindow.MediaPlayerVideo"
+            android:label="@string/x_video_name">
+        </activity>
     </application>
 
 </manifest>

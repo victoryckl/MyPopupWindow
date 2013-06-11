@@ -28,7 +28,7 @@ public class MyPopupWindow extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_my_popup_window);
+		setContentView(R.layout.x_activity_my_popup_window);
 		
 		mDisplay = getWindowManager().getDefaultDisplay();
 		

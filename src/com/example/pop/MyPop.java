@@ -71,7 +71,7 @@ public class MyPop extends PopupWindow {
 		if (context != null) {
 			mContext = context.getApplicationContext();
 			// 加载popupWindow的布局文件
-			View contentView = LayoutInflater.from(mContext).inflate(R.layout.pop, null);
+			View contentView = LayoutInflater.from(mContext).inflate(R.layout.x_pop, null);
 			// 设置popupWindow的背景颜色
 //			contentView.setBackgroundColor(Color.RED);
 			
