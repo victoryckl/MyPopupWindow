@@ -1,16 +1,19 @@
 package com.example.mypopupwindow;
 
-import java.net.URISyntaxException;
-
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
+import android.view.View.OnLayoutChangeListener;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.MediaController;
+import android.widget.RelativeLayout.LayoutParams;
+import android.widget.ScrollView;
 import android.widget.Toast;
 import android.widget.VideoView;
 
@@ -19,6 +22,8 @@ public class VideoActivity extends Activity {
 	private static final String TAG = "VideoActivity";
 	private EditText mEditFilePath;
 	private VideoView mVideoView;
+	private ScrollView mScrollView;
+	private LinearLayout mLinearLayout;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -33,9 +38,15 @@ public class VideoActivity extends Activity {
 		findViewById(R.id.x_btn_mediaplayer).setOnClickListener(mBtnClickListener);
 		findViewById(R.id.x_btn_choose_file).setOnClickListener(mBtnClickListener);
 		
+		mScrollView = (ScrollView)findViewById(R.id.x_scrollview);
+		mScrollView.smoothScrollTo(0, 0);
+		
 		mEditFilePath = (EditText)findViewById(R.id.x_edit_path);
 		mVideoView = (VideoView)findViewById(R.id.x_videoview);
-		mVideoView.setMediaController(new MediaController(this));  
+		mVideoView.setMediaController(new MediaController(this));
+		
+		mLinearLayout = (LinearLayout)findViewById(R.id.x_linearlayout_video);
+		mLinearLayout.addOnLayoutChangeListener(mLayoutChangeListener);
 	}
 	
 	private View.OnClickListener mBtnClickListener = new View.OnClickListener() {
@@ -133,5 +144,47 @@ public class VideoActivity extends Activity {
 		}
 		
 		return path;
+	}
+	
+	@Override
+	public void onConfigurationChanged(Configuration newConfig) {
+		super.onConfigurationChanged(newConfig);
+//		String msg = String.format("linearlayout:(%d,%d-%d,%d)", 
+//				(int)mLinearLayout.getX(), (int)mLinearLayout.getY(), mLinearLayout.getWidth(), mLinearLayout.getHeight());
+//		Log.i(TAG, msg);
+		setViewVideoPosition((int)mLinearLayout.getX(), (int)mLinearLayout.getY(), mLinearLayout.getWidth(), mLinearLayout.getHeight());
+	}
+	OnLayoutChangeListener mLayoutChangeListener = new OnLayoutChangeListener() {
+		@Override
+		public void onLayoutChange(View v, int left, int top, int right,
+				int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
+			if ((left == oldLeft) && (top == oldTop) && (right == oldRight) && (bottom == oldBottom)) {
+				return ;
+			}
+			Handler handler = new Handler() {
+				public void handleMessage(android.os.Message msg) {
+					if (msg.what == 0) {
+//						String s = String.format("linearlayout:(%d,%d-%d,%d)", 
+//								(int)mLinearLayout.getX(), (int)mLinearLayout.getY(), mLinearLayout.getWidth(), mLinearLayout.getHeight());
+//						Log.i(TAG, "handler-->" + s);
+						setViewVideoPosition((int)mLinearLayout.getX(), (int)mLinearLayout.getY(), mLinearLayout.getWidth(), mLinearLayout.getHeight());
+					}
+				};
+			};
+			handler.sendEmptyMessage(0);
+		}
+	};
+	
+	private void setViewVideoPosition(int left, int top, int w, int h) {
+		int orientation = getResources().getConfiguration().orientation;
+		LayoutParams lp = (LayoutParams) mVideoView.getLayoutParams();
+		if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+			lp.leftMargin = left + w;
+			lp.topMargin = top;
+		} else if (orientation == Configuration.ORIENTATION_PORTRAIT) {
+			lp.leftMargin = left;
+			lp.topMargin = top + h;
+		}
+		mVideoView.setLayoutParams(lp);
 	}
 }

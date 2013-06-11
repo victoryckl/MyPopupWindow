@@ -109,7 +109,7 @@ public class MediaPlayerVideo extends Activity implements OnCompletionListener,O
 		int vWidth = mPlayer.getVideoWidth();
 		int vHeight = mPlayer.getVideoHeight();
 		//如果video的宽或者高超出了当前屏幕的大小，则要进行缩放  
-		if (vWidth > mDisplay.getWidth() || vHeight > mDisplay.getHeight()) {
+//		if (vWidth > mDisplay.getWidth() || vHeight > mDisplay.getHeight()) {
 			float wRatio = (float)vWidth/(float)mDisplay.getWidth();
 			float hRatio = (float)vHeight/(float)mDisplay.getHeight();
 			//选择大的一个进行缩放
@@ -118,7 +118,7 @@ public class MediaPlayerVideo extends Activity implements OnCompletionListener,O
 			vHeight = (int)Math.ceil((float)vHeight/ratio);
 			//设置surfaceView的布局参数
 			mSurfaceView.setLayoutParams(new LinearLayout.LayoutParams(vWidth, vHeight));
-		}
+//		}
 		mPlayer.start();
 	}
 

@@ -7,6 +7,7 @@
     <uses-sdk
         android:minSdkVersion="14"
         android:targetSdkVersion="16" />
+    <uses-permission android:name="andorid.permission.CHANGE_CONFIGURATION"/>
 
     <application
         android:hardwareAccelerated="true"

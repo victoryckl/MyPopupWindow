@@ -28,7 +28,7 @@
         android:id="@+id/x_btn_popview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/x_button_popupwindow"
+        android:layout_alignLeft="@id/x_btn_popupwindow"
         android:layout_below="@+id/x_btn_popupwindow"
         android:layout_marginLeft="25dp"
         android:layout_marginTop="27dp"
