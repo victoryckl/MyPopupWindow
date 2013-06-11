@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -48,6 +49,8 @@ public class MyPopupWindow extends Activity {
 		
 		mBtnPopview = (Button)findViewById(R.id.x_btn_popview);
 		mBtnPopview.setOnClickListener(mBtnClickListener);
+		
+		findViewById(R.id.x_btn_video_demo).setOnClickListener(mBtnClickListener);
 	}
 	
 	private OnClickListener mBtnClickListener = new OnClickListener() {
@@ -59,6 +62,9 @@ public class MyPopupWindow extends Activity {
 				break;
 			case R.id.x_btn_popview:
 				showPopView("hello", getHtml());
+				break;
+			case R.id.x_btn_video_demo:
+				startVideoDemo();
 				break;
 			default:
 				break;
@@ -75,6 +81,12 @@ public class MyPopupWindow extends Activity {
 		 * parent 父布局 gravity 依靠父布局的位置如Gravity.CENTER  x y 坐标值
 		 */
 		pop.showAtLocation(getWindow().getDecorView(), Gravity.CENTER, 0, 0);
+	}
+
+	protected void startVideoDemo() {
+		Intent intent = new Intent();
+		intent.setClass(this, VideoActivity.class);
+		startActivity(intent);
 	}
 
 	//---------------------------

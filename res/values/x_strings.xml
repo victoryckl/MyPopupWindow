@@ -17,5 +17,6 @@
 	<string name="x_str_no_file_browser">亲，木有文件管理器-_-!</string>
 	<string name="x_str_select_file">请选择多媒体文件</string>
 	<string name="x_str_no_path">亲，木有路径怎么播-_-!!</string>
+	<string name="x_btn_video_demo">视频播放测试</string>
 	
 </resources>
