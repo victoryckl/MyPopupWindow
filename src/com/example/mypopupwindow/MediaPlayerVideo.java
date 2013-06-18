@@ -32,18 +32,27 @@ public class MediaPlayerVideo extends Activity implements OnCompletionListener,O
 		setContentView(R.layout.x_mediaplayer_activity);
 		init();
 	}
+	
+	@Override
+	protected void onDestroy() {
+		if (mPlayer != null) {
+			mPlayer.release();
+			mPlayer = null;
+		}
+		super.onDestroy();
+	}
 
 	private void init() {
 		mPath = getIntent().getExtras().getString("path");
 		
 		mSurfaceView = (SurfaceView)findViewById(R.id.x_video_surface);
-		//¸øSurfaceViewÌí¼ÓCallBack¼àÌý
+		//ï¿½ï¿½SurfaceViewï¿½ï¿½ï¿½CallBackï¿½ï¿½ï¿½ï¿½
 		mHolder = mSurfaceView.getHolder();
 		mHolder.addCallback(this);		
-		//ÎªÁË¿ÉÒÔ²¥·ÅÊÓÆµ»òÕßÊ¹ÓÃCameraÔ¤ÀÀ£¬ÎÒÃÇÐèÒªÖ¸¶¨ÆäBufferÀàÐÍ
+		//Îªï¿½Ë¿ï¿½ï¿½Ô²ï¿½ï¿½ï¿½ï¿½ï¿½Æµï¿½ï¿½ï¿½ï¿½Ê¹ï¿½ï¿½CameraÔ¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÒªÖ¸ï¿½ï¿½ï¿½ï¿½Bufferï¿½ï¿½ï¿½ï¿½
 		mHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
 		
-		//ÏÂÃæ¿ªÊ¼ÊµÀý»¯MediaPlayer¶ÔÏó
+		//ï¿½ï¿½ï¿½æ¿ªÊ¼Êµï¿½ï¿½MediaPlayerï¿½ï¿½ï¿½ï¿½
 		mPlayer = new MediaPlayer();
 		mPlayer.setOnCompletionListener(this);
 		mPlayer.setOnErrorListener(this);
@@ -52,7 +61,7 @@ public class MediaPlayerVideo extends Activity implements OnCompletionListener,O
 		mPlayer.setOnSeekCompleteListener(this);
 		mPlayer.setOnVideoSizeChangedListener(this);
 		
-		//È»ºóÖ¸¶¨ÐèÒª²¥·ÅÎÄ¼þµÄÂ·¾¶£¬³õÊ¼»¯MediaPlayer
+		//È»ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½Â·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½MediaPlayer
 		try {
 			mPlayer.setDataSource(mPath);
 		} catch (IllegalArgumentException e) {
@@ -64,23 +73,23 @@ public class MediaPlayerVideo extends Activity implements OnCompletionListener,O
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		//È»ºó£¬ÎÒÃÇÈ¡µÃµ±Ç°Display¶ÔÏó
+		//È»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¡ï¿½Ãµï¿½Ç°Displayï¿½ï¿½ï¿½ï¿½
 		mDisplay = getWindowManager().getDefaultDisplay();
 	}
 
 	@Override
 	public void surfaceChanged(SurfaceHolder holder, int format, int width,
 			int height) {
-		// µ±Surface³ß´çµÈ²ÎÊý¸Ä±äÊ±´¥·¢ 
+		// ï¿½ï¿½Surfaceï¿½ß´ï¿½È²ï¿½ï¿½ï¿½Ä±ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ 
 		Log.v("Surface Change:::", "surfaceChanged called");
 	}
 
 	@Override
 	public void surfaceCreated(SurfaceHolder holder) {
-		// µ±SurfaceViewÖÐµÄSurface±»´´½¨µÄÊ±ºò±»µ÷ÓÃ 
-		//ÔÚÕâÀïÎÒÃÇÖ¸¶¨MediaPlayerÔÚµ±Ç°µÄSurfaceÖÐ½øÐÐ²¥·Å
+		// ï¿½ï¿½SurfaceViewï¿½Ðµï¿½Surfaceï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ò±»µï¿½ï¿½ï¿½ 
+		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½MediaPlayerï¿½Úµï¿½Ç°ï¿½ï¿½Surfaceï¿½Ð½ï¿½ï¿½Ð²ï¿½ï¿½ï¿½
 		mPlayer.setDisplay(mHolder);
-		//ÔÚÖ¸¶¨ÁËMediaPlayer²¥·ÅµÄÈÝÆ÷ºó£¬ÎÒÃÇ¾Í¿ÉÒÔÊ¹ÓÃprepare»òÕßprepareAsyncÀ´×¼±¸²¥·ÅÁË
+		//ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½MediaPlayerï¿½ï¿½ï¿½Åµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç¾Í¿ï¿½ï¿½ï¿½Ê¹ï¿½ï¿½prepareï¿½ï¿½ï¿½ï¿½prepareAsyncï¿½ï¿½×¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		mPlayer.prepareAsync();
 	}
 
@@ -91,32 +100,32 @@ public class MediaPlayerVideo extends Activity implements OnCompletionListener,O
 
 	@Override
 	public void onVideoSizeChanged(MediaPlayer mp, int width, int height) {
-		// µ±video´óÐ¡¸Ä±äÊ±´¥·¢
-		//Õâ¸ö·½·¨ÔÚÉèÖÃplayerµÄsourceºóÖÁÉÙ´¥·¢Ò»´Î
+		// ï¿½ï¿½videoï¿½ï¿½Ð¡ï¿½Ä±ï¿½Ê±ï¿½ï¿½ï¿½ï¿½
+		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½playerï¿½ï¿½sourceï¿½ï¿½ï¿½ï¿½ï¿½Ù´ï¿½ï¿½ï¿½Ò»ï¿½ï¿½
 		Log.v("Video Size Change", "onVideoSizeChanged called");
 	}
 
 	@Override
 	public void onSeekComplete(MediaPlayer mp) {
-		// seek²Ù×÷Íê³ÉÊ±´¥·¢
+		// seekï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½
 		Log.v("Seek Completion", "onSeekComplete called");
 	}
 
 	@Override
 	public void onPrepared(MediaPlayer mp) {
-		// µ±prepareÍê³Éºó£¬¸Ã·½·¨´¥·¢£¬ÔÚÕâÀïÎÒÃÇ²¥·ÅÊÓÆµ     
-		//Ê×ÏÈÈ¡µÃvideoµÄ¿íºÍ¸ß
+		// ï¿½ï¿½prepareï¿½ï¿½Éºó£¬¸Ã·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç²ï¿½ï¿½ï¿½ï¿½ï¿½Æµ     
+		//ï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½videoï¿½Ä¿ï¿½Í¸ï¿½
 		int vWidth = mPlayer.getVideoWidth();
 		int vHeight = mPlayer.getVideoHeight();
-		//Èç¹ûvideoµÄ¿í»òÕß¸ß³¬³öÁËµ±Ç°ÆÁÄ»µÄ´óÐ¡£¬ÔòÒª½øÐÐËõ·Å  
+		//ï¿½ï¿½ï¿½videoï¿½Ä¿ï¿½ï¿½ï¿½ß¸ß³ï¿½ï¿½ï¿½ï¿½Ëµï¿½Ç°ï¿½ï¿½Ä»ï¿½Ä´ï¿½Ð¡ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  
 //		if (vWidth > mDisplay.getWidth() || vHeight > mDisplay.getHeight()) {
 			float wRatio = (float)vWidth/(float)mDisplay.getWidth();
 			float hRatio = (float)vHeight/(float)mDisplay.getHeight();
-			//Ñ¡Ôñ´óµÄÒ»¸ö½øÐÐËõ·Å
+			//Ñ¡ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			float ratio = Math.max(wRatio, hRatio);
 			vWidth = (int)Math.ceil((float)vWidth/ratio);
 			vHeight = (int)Math.ceil((float)vHeight/ratio);
-			//ÉèÖÃsurfaceViewµÄ²¼¾Ö²ÎÊý
+			//ï¿½ï¿½ï¿½ï¿½surfaceViewï¿½Ä²ï¿½ï¿½Ö²ï¿½ï¿½ï¿½
 			mSurfaceView.setLayoutParams(new LinearLayout.LayoutParams(vWidth, vHeight));
 //		}
 		mPlayer.start();
@@ -124,7 +133,7 @@ public class MediaPlayerVideo extends Activity implements OnCompletionListener,O
 
 	@Override
 	public boolean onInfo(MediaPlayer mp, int what, int extra) {
-        // µ±Ò»Ð©ÌØ¶¨ÐÅÏ¢³öÏÖ»òÕß¾¯¸æÊ±´¥·¢     
+        // ï¿½ï¿½Ò»Ð©ï¿½Ø¶ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½Ö»ï¿½ï¿½ß¾ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½     
         switch(what){    
         case MediaPlayer.MEDIA_INFO_BAD_INTERLEAVING:    
             break;    
@@ -156,7 +165,7 @@ public class MediaPlayerVideo extends Activity implements OnCompletionListener,O
 
 	@Override
 	public void onCompletion(MediaPlayer mp) {
-        // µ±MediaPlayer²¥·ÅÍê³Éºó´¥·¢
+        // ï¿½ï¿½MediaPlayerï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Éºó´¥·ï¿½
         Log.v("Play Over:::", "onComletion called");    
         this.finish();
 	}
