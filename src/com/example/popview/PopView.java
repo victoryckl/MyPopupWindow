@@ -3,6 +3,7 @@ package com.example.popview;
 import android.content.Context;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
+import android.media.MediaPlayer.OnErrorListener;
 import android.media.MediaPlayer.OnPreparedListener;
 import android.net.Uri;
 import android.util.AttributeSet;
@@ -94,26 +95,7 @@ public class PopView extends LinearLayout {
 
 		showVideoView(videoPath);
 	}
-	
-	protected void showVideoView(String path) {
-		if (path == null || path.length() <= 0) {
-			return;
-		}
-		Uri uri = Uri.parse(path);
-//		mVideoView.setOnPreparedListener(new OnPreparedListener() {
-//			@Override
-//			public void onPrepared(MediaPlayer mp) {
-//				mp.setLooping(true);
-//			}
-//		});
-		Log.i(TAG, "-------> " + uri.toString());
-//		mVideoView.setVideoPath(path);
-		mVideoView.setVideoURI(uri);
-		mVideoView.start();
-		mVideoView.requestFocus();
-		mVideoView.setVisibility(View.VISIBLE);
-	}
-	
+
 	private void webviewSetting(MyWebView webview) {
 		WebSettings s = webview.getSettings();
 		s.setJavaScriptEnabled(true);
@@ -295,4 +277,33 @@ public class PopView extends LinearLayout {
 			mVideoView.setTranslationY(-mWebView.getScrollY());
 		}
 	};
+	
+	private OnPreparedListener mOnPreparedListener = new OnPreparedListener() {
+		@Override
+		public void onPrepared(MediaPlayer mp) {
+			mp.setLooping(true);
+		}
+	};
+	
+	private OnErrorListener mOnErrorListener = new OnErrorListener() {
+		@Override
+		public boolean onError(MediaPlayer mp, int what, int extra) {
+			mVideoView.setVisibility(View.INVISIBLE);
+			return false;
+		}
+	};
+	
+	
+	protected void showVideoView(String path) {
+		if (path == null || path.length() <= 0) {
+			return;
+		}
+		mVideoView.setOnPreparedListener(mOnPreparedListener);
+		mVideoView.setOnErrorListener(mOnErrorListener);
+		mVideoView.setVideoPath(path);
+		mVideoView.start();
+		mVideoView.requestFocus();
+		mVideoView.setVisibility(View.INVISIBLE);
+	}
+	
 }
