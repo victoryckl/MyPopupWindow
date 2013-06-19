@@ -16,6 +16,7 @@ import android.widget.AbsoluteLayout;
 import android.widget.Toast;
 import android.widget.AbsoluteLayout.LayoutParams;
 
+import com.example.mypopupwindow.R;
 import com.example.popview.PopView.OnDismissListener;
 import com.example.resid.ResourcesId;
 
@@ -57,7 +58,7 @@ public class PopViewWrapper {
 			
 			setPopViewPosition(mAbsoluteLayout.getWidth(), mAbsoluteLayout.getHeight());
 			
-			mPopView.init(word, explain);
+			mPopView.init(word, explain, "/sdcard/video.avi");
 			mPopView.setOnDismissListener(new OnDismissListener() {
 				@Override
 				public void onDismiss() {

@@ -75,10 +75,10 @@ public class MyPopupWindow extends Activity {
 	private void showPop() {
 		MyPop pop = new MyPop(this);
 		/*
-		 * popupWindow.showAsDropDown£¨View view£©µ¯³ö¶Ô»°¿ò£¬Î»ÖÃÔÚ½ô°¤×Åview×é¼þ
-		 * showAsDropDown(View anchor, int xoff, int yoff)µ¯³ö¶Ô»°¿ò£¬Î»ÖÃÔÚ½ô°¤×Åview×é¼þ£¬x y ´ú±í×ÅÆ«ÒÆÁ¿
-		 * showAtLocation(View parent, int gravity, int x, int y)µ¯³ö¶Ô»°¿ò
-		 * parent ¸¸²¼¾Ö gravity ÒÀ¿¿¸¸²¼¾ÖµÄÎ»ÖÃÈçGravity.CENTER  x y ×ø±êÖµ
+		 * popupWindow.showAsDropDownï¿½ï¿½View viewï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô»ï¿½ï¿½ï¿½Î»ï¿½ï¿½ï¿½Ú½ï¿½ï¿½ï¿½ï¿½ï¿½viewï¿½ï¿½ï¿½
+		 * showAsDropDown(View anchor, int xoff, int yoff)ï¿½ï¿½ï¿½ï¿½ï¿½Ô»ï¿½ï¿½ï¿½Î»ï¿½ï¿½ï¿½Ú½ï¿½ï¿½ï¿½ï¿½ï¿½viewï¿½ï¿½ï¿½ï¿½ï¿½x y ï¿½ï¿½ï¿½ï¿½ï¿½Æ«ï¿½ï¿½ï¿½ï¿½
+		 * showAtLocation(View parent, int gravity, int x, int y)ï¿½ï¿½ï¿½ï¿½ï¿½Ô»ï¿½ï¿½ï¿½
+		 * parent ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ gravity ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµï¿½Î»ï¿½ï¿½ï¿½ï¿½Gravity.CENTER  x y ï¿½ï¿½ï¿½Öµ
 		 */
 		pop.showAtLocation(getWindow().getDecorView(), Gravity.CENTER, 0, 0);
 	}

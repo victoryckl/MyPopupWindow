@@ -2,8 +2,8 @@
 <com.example.popview.PopView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@drawable/x_pop_bg">
+    android:background="@drawable/x_pop_bg"
+    android:orientation="vertical" >
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -14,7 +14,7 @@
             android:id="@+id/x_txt_word"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"/>
+            android:layout_weight="1" />
 
         <Button
             android:id="@+id/x_btn_fullscreen"
@@ -28,12 +28,27 @@
             android:layout_height="wrap_content"
             android:text="@string/x_back" />
     </LinearLayout>
-    
-    <WebView 
-        android:id="@+id/x_webview_explain"
+
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:background="@android:color/transparent"/>
+        android:layout_height="match_parent"
+        android:layout_weight="1" >
+
+        <com.example.popview.MyWebView
+            android:id="@+id/x_webview_explain"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@android:color/transparent" />
+        
+        <VideoView
+            android:id="@+id/x_videoview"
+            android:layout_width="285px"
+            android:layout_height="160px"
+            android:layout_gravity="top|right"
+            android:layout_marginRight="294dip"
+            android:layout_marginTop="9dip"
+            android:visibility="invisible"/>
+    </FrameLayout>
 
 </com.example.popview.PopView>

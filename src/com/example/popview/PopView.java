@@ -1,6 +1,10 @@
 package com.example.popview;
 
 import android.content.Context;
+import android.media.MediaPlayer;
+import android.media.MediaPlayer.OnCompletionListener;
+import android.media.MediaPlayer.OnPreparedListener;
+import android.net.Uri;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -10,13 +14,13 @@ import android.view.ViewGroup;
 import android.view.ViewParent;
 import android.webkit.WebSettings;
 import android.webkit.WebSettings.PluginState;
-import android.webkit.WebView;
 import android.widget.AbsoluteLayout;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.VideoView;
 
+import com.example.popview.MyWebView.OnScrollListener;
 import com.example.resid.ResourcesId;
 
 public class PopView extends LinearLayout {
@@ -26,8 +30,9 @@ public class PopView extends LinearLayout {
 	private TextView mTxtWord;
 	private Button mBtnFullscreen;
 	private Button mBtnBack;
-	private WebView mWebView;
+	private MyWebView mWebView;
 	private ViewGroup mParent;
+	private VideoView mVideoView;
 	private int mBtnFullscreenId, mBtnBackId;
 	private int mStrFullscreenId, mStrSmallscreenId;
 
@@ -52,7 +57,7 @@ public class PopView extends LinearLayout {
 		}
 	}
 	
-	public void init(String word, String explain) {
+	public void init(String word, String explain, String videoPath) {
 //		Log.i(TAG, "init()");
 		ResourcesId res = ResourcesId.getInstance(mContext);
 
@@ -73,22 +78,48 @@ public class PopView extends LinearLayout {
 		mBtnBack.setOnClickListener(mBtnOnClickListener);
 
 		id = res.getResourcesId("id", "x_webview_explain");
-		mWebView = (WebView)findViewById(id);
+		mWebView = (MyWebView)findViewById(id);
 		webviewSetting(mWebView);
 //		mWebView.loadData(explain, "text/html", "uft-8");
 //		mWebView.loadUrl("file:///android_asset/flash.html");
 		mWebView.loadDataWithBaseURL("about:blank", explain, "text/html", "uft-8", null);
 		
-		dragView(this);
-		
 		mStrFullscreenId = res.getResourcesId("string", "x_fullscreen");
 		mStrSmallscreenId = res.getResourcesId("string", "x_smallscreen");
+		
+		id = res.getResourcesId("id", "x_videoview");
+		mVideoView = (VideoView)findViewById(id);
+		
+		dragView(this);
+
+		showVideoView(videoPath);
 	}
 	
-	private void webviewSetting(WebView webview) {
+	protected void showVideoView(String path) {
+		if (path == null || path.length() <= 0) {
+			return;
+		}
+		Uri uri = Uri.parse(path);
+//		mVideoView.setOnPreparedListener(new OnPreparedListener() {
+//			@Override
+//			public void onPrepared(MediaPlayer mp) {
+//				mp.setLooping(true);
+//			}
+//		});
+		Log.i(TAG, "-------> " + uri.toString());
+//		mVideoView.setVideoPath(path);
+		mVideoView.setVideoURI(uri);
+		mVideoView.start();
+		mVideoView.requestFocus();
+		mVideoView.setVisibility(View.VISIBLE);
+	}
+	
+	private void webviewSetting(MyWebView webview) {
 		WebSettings s = webview.getSettings();
 		s.setJavaScriptEnabled(true);
 		s.setPluginState(PluginState.ON);
+		
+		webview.setOnScrollListenser(mOnScrollListener);
 	}
 	
 	private ViewGroup getParent(View view) {
@@ -231,6 +262,10 @@ public class PopView extends LinearLayout {
 				case MotionEvent.ACTION_DOWN:
 					x = (int) event.getX();
 					y = (int) event.getY();
+					String m = String.format("webview[scale:%f, content height:%d, height:%d, scroll y:%d]", 
+							mWebView.getScale(), mWebView.getContentHeight(), 
+							mWebView.getHeight(), mWebView.getScrollY());
+					Log.i(TAG, m);
 					break;
 				case MotionEvent.ACTION_MOVE:
 					dx = (int) (event.getX() - x);
@@ -253,4 +288,11 @@ public class PopView extends LinearLayout {
 		lp.y += dy;
 		view.setLayoutParams(lp);
 	}
+
+	private OnScrollListener mOnScrollListener = new OnScrollListener() {
+		@Override
+		public void onScrollChanged(int l, int t, int oldl, int oldt) {
+			mVideoView.setTranslationY(-mWebView.getScrollY());
+		}
+	};
 }
