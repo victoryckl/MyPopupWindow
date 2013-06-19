@@ -303,7 +303,7 @@ public class PopView extends LinearLayout {
 		mVideoView.setVideoPath(path);
 		mVideoView.start();
 		mVideoView.requestFocus();
-		mVideoView.setVisibility(View.INVISIBLE);
+		mVideoView.setVisibility(View.VISIBLE);
 	}
 	
 }
