@@ -31,14 +31,37 @@ public class PopViewWrapper {
 		mActivity = activity;
 	}
 	
+	private AbsoluteLayout getAbsoluteLayoutObject() {
+		if (mAbsoluteLayout == null) {
+			int id = ResourcesId.getResourcesId(mActivity, "id", "x_absolutelayout");
+			mAbsoluteLayout = (AbsoluteLayout)mActivity.findViewById(id);
+		}
+		return mAbsoluteLayout;
+	}
+	
+	private PopView getPopViewObject() {
+		if (mPopView == null) {
+			int id = ResourcesId.getResourcesId(mActivity, "layout", "x_popview");
+			mPopView = (PopView) LayoutInflater.from(mActivity).inflate(id, null);
+		}
+		return mPopView;
+	}
+	
+	public void initPopView() {
+		mAbsoluteLayout = getAbsoluteLayoutObject();
+		mPopView = getPopViewObject();
+		
+		mAbsoluteLayout.removeAllViews();
+		mAbsoluteLayout.addView(mPopView);
+		mPopView=null;
+	}
+	
 	public void showPopView(String word, String explain) {
 		if (!bIsShowing) {
 			bIsShowing = true;
 			
-			if (mAbsoluteLayout == null) {
-				int id = ResourcesId.getResourcesId(mActivity, "id", "x_absolutelayout");
-				mAbsoluteLayout = (AbsoluteLayout)mActivity.findViewById(id);
-			}
+			mAbsoluteLayout = getAbsoluteLayoutObject();
+			mPopView = getPopViewObject();
 			
 			mAbsoluteLayout.removeAllViews();
 			mAbsoluteLayout.setVisibility(View.VISIBLE);
@@ -51,9 +74,6 @@ public class PopViewWrapper {
 			});
 			
 			mAbsoluteLayout.addOnLayoutChangeListener(mOnLayoutChangeListener);
-			
-			int id = ResourcesId.getResourcesId(mActivity, "layout", "x_popview");
-			mPopView = (PopView) LayoutInflater.from(mActivity).inflate(id, null);
 			mAbsoluteLayout.addView(mPopView);
 			
 			setPopViewPosition(mAbsoluteLayout.getWidth(), mAbsoluteLayout.getHeight());

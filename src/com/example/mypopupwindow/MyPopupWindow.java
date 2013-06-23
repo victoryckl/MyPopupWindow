@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -28,6 +29,7 @@ public class MyPopupWindow extends Activity {
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		Log.i(TAG, "onCreate()");
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.x_activity_my_popup_window);
 		
@@ -35,7 +37,7 @@ public class MyPopupWindow extends Activity {
 		
 		init();
 	}
-
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
@@ -51,6 +53,8 @@ public class MyPopupWindow extends Activity {
 		mBtnPopview.setOnClickListener(mBtnClickListener);
 		
 		findViewById(R.id.x_btn_video_demo).setOnClickListener(mBtnClickListener);
+		
+		mPopViewWrapper.initPopView();
 	}
 	
 	private OnClickListener mBtnClickListener = new OnClickListener() {
@@ -136,12 +140,14 @@ public class MyPopupWindow extends Activity {
 	
 	@Override
 	protected void onResume() {
+		Log.i(TAG, "onResume()");
 		mPopViewWrapper.onResume();
 		super.onResume();
 	}
 	
 	@Override
 	protected void onPause() {
+		Log.i(TAG, "onPause()");
 		mPopViewWrapper.onPause();
 		super.onPause();
 	}

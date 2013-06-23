@@ -2,10 +2,10 @@ package com.example.popview;
 
 import android.content.Context;
 import android.media.MediaPlayer;
-import android.media.MediaPlayer.OnCompletionListener;
 import android.media.MediaPlayer.OnErrorListener;
 import android.media.MediaPlayer.OnPreparedListener;
-import android.net.Uri;
+import android.os.Handler;
+import android.os.Message;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -36,6 +36,7 @@ public class PopView extends LinearLayout {
 	private VideoView mVideoView;
 	private int mBtnFullscreenId, mBtnBackId;
 	private int mStrFullscreenId, mStrSmallscreenId;
+	private String mVideoPath;
 
 	public PopView(Context context) {
 		super(context);
@@ -59,7 +60,7 @@ public class PopView extends LinearLayout {
 	}
 	
 	public void init(String word, String explain, String videoPath) {
-//		Log.i(TAG, "init()");
+		Log.i(TAG, "init()");
 		ResourcesId res = ResourcesId.getInstance(mContext);
 
 		bIsFullscreen = false;
@@ -90,11 +91,29 @@ public class PopView extends LinearLayout {
 		
 		id = res.getResourcesId("id", "x_videoview");
 		mVideoView = (VideoView)findViewById(id);
+		//mVideoView = (VideoView)mParent.findViewById(id);
+		Log.i(TAG, "mVideoView:" + mVideoView);
 		
 		dragView(this);
 
-		showVideoView(videoPath);
+		mVideoPath = videoPath;
+//		showVideoView(videoPath);
+		mHandler.sendEmptyMessageDelayed(0, 000);
 	}
+	
+	private Handler mHandler = new Handler() {
+		public void handleMessage(Message msg) {
+			switch (msg.what) {
+			case 0:
+				showVideoView(mVideoPath);
+				break;
+			case 1:
+				break;
+			default:
+				break;
+			}
+		};
+	};
 
 	private void webviewSetting(MyWebView webview) {
 		WebSettings s = webview.getSettings();
@@ -274,7 +293,9 @@ public class PopView extends LinearLayout {
 	private OnScrollListener mOnScrollListener = new OnScrollListener() {
 		@Override
 		public void onScrollChanged(int l, int t, int oldl, int oldt) {
-			mVideoView.setTranslationY(-mWebView.getScrollY());
+			if (mVideoView != null) {
+				mVideoView.setTranslationY(-mWebView.getScrollY());
+			}
 		}
 	};
 	
@@ -288,22 +309,27 @@ public class PopView extends LinearLayout {
 	private OnErrorListener mOnErrorListener = new OnErrorListener() {
 		@Override
 		public boolean onError(MediaPlayer mp, int what, int extra) {
-			mVideoView.setVisibility(View.INVISIBLE);
+			if (mVideoView != null) {
+				mVideoView.setVisibility(View.INVISIBLE);
+			}
 			return false;
 		}
 	};
 	
 	
 	protected void showVideoView(String path) {
+		Log.i(TAG, "---------showVideoView() path=" + path);
 		if (path == null || path.length() <= 0) {
 			return;
 		}
-		mVideoView.setOnPreparedListener(mOnPreparedListener);
-		mVideoView.setOnErrorListener(mOnErrorListener);
-		mVideoView.setVideoPath(path);
-		mVideoView.start();
-		mVideoView.requestFocus();
-		mVideoView.setVisibility(View.VISIBLE);
+		
+		if (mVideoView != null) {
+			mVideoView.setOnPreparedListener(mOnPreparedListener);
+			mVideoView.setOnErrorListener(mOnErrorListener);
+			mVideoView.setVideoPath(path);
+			mVideoView.start();
+			mVideoView.requestFocus();
+			mVideoView.setVisibility(View.VISIBLE);
+		}
 	}
-	
 }
