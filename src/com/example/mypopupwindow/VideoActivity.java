@@ -17,6 +17,8 @@ import android.widget.ScrollView;
 import android.widget.Toast;
 import android.widget.VideoView;
 
+import com.example.toast.StaticToast;
+
 public class VideoActivity extends Activity {
 	private static final int FILE_SELECT_CODE = 0;
 	private static final String TAG = "VideoActivity";
@@ -112,7 +114,7 @@ public class VideoActivity extends Activity {
 			String str = (String)getResources().getString(R.string.x_str_select_file);
 			startActivityForResult(Intent.createChooser(intent, str), FILE_SELECT_CODE);
 		} catch (android.content.ActivityNotFoundException ex) {
-			Toast.makeText(this, R.string.x_str_no_file_browser, Toast.LENGTH_SHORT).show();
+			StaticToast.show(this, R.string.x_str_no_file_browser, Toast.LENGTH_SHORT);
 		}
 	}
 	
@@ -137,7 +139,7 @@ public class VideoActivity extends Activity {
 
 		path = mEditFilePath.getText().toString();
 		if (path == null || path.length() <= 0) {
-			Toast.makeText(this, R.string.x_str_no_path, Toast.LENGTH_SHORT).show();
+			StaticToast.show(this, R.string.x_str_no_path, Toast.LENGTH_SHORT);
 			path = null;
 		} else {
 			Log.i(TAG, "getPath(): " + path);

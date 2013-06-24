@@ -1,8 +1,6 @@
 package com.example.popview;
 
 import android.app.Activity;
-import android.content.IntentSender.SendIntentException;
-import android.content.res.Configuration;
 import android.os.Handler;
 import android.os.Message;
 import android.util.DisplayMetrics;
@@ -13,10 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AbsoluteLayout;
-import android.widget.Toast;
-import android.widget.AbsoluteLayout.LayoutParams;
 
-import com.example.mypopupwindow.R;
 import com.example.popview.PopView.OnDismissListener;
 import com.example.resid.ResourcesId;
 

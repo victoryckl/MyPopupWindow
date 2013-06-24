@@ -5,8 +5,6 @@ import java.io.InputStream;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Display;
@@ -16,7 +14,6 @@ import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.Toast;
 
 import com.example.pop.MyPop;
 import com.example.popview.PopViewWrapper;
@@ -150,5 +147,23 @@ public class MyPopupWindow extends Activity {
 		Log.i(TAG, "onPause()");
 		mPopViewWrapper.onPause();
 		super.onPause();
+	}
+	
+	@Override
+	protected void onStart() {
+		Log.i(TAG, "onStart()");
+		super.onStart();
+	}
+	
+	@Override
+	protected void onStop() {
+		Log.i(TAG, "onStop()");
+		super.onStop();
+	}
+	
+	@Override
+	protected void onDestroy() {
+		Log.i(TAG, "onDestroy()");
+		super.onDestroy();
 	}
 }
