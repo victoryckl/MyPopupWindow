@@ -10,7 +10,7 @@ public class StaticToast {
 	
 	public static void show(Context context, String text, int duration) {
 		if (mToast == null) {
-			mToast.makeText(context, "", Toast.LENGTH_SHORT);
+			mToast = Toast.makeText(context, "", Toast.LENGTH_SHORT);
 		}
 		mToast.setText(text);
 		mToast.setDuration(duration);
