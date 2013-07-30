@@ -5,6 +5,7 @@ import java.io.InputStream;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Display;
@@ -14,15 +15,19 @@ import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.pop.MyPop;
 import com.example.popview.PopViewWrapper;
+import com.example.toast.StaticToast;
 
 public class MyPopupWindow extends Activity {
 
 	private static final String TAG = null;
 	private Button mBtnPopup, mBtnPopview;
 	private Display mDisplay;
+	private TextView mTextView;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +55,8 @@ public class MyPopupWindow extends Activity {
 		mBtnPopview.setOnClickListener(mBtnClickListener);
 		
 		findViewById(R.id.x_btn_video_demo).setOnClickListener(mBtnClickListener);
+		findViewById(R.id.x_btn_show_text).setOnClickListener(mBtnClickListener);
+		mTextView = (TextView)findViewById(R.id.x_text);
 		
 		mPopViewWrapper.initPopView();
 	}
@@ -67,11 +74,20 @@ public class MyPopupWindow extends Activity {
 			case R.id.x_btn_video_demo:
 				startVideoDemo();
 				break;
+			case R.id.x_btn_show_text:
+				showText();
+				break;
 			default:
 				break;
 			}
 		}
 	};
+	
+	private void showText() {
+		StaticToast.show(getApplicationContext(), mTextView.getText().toString(), Toast.LENGTH_SHORT);
+		Paint paint = mTextView.getPaint();
+		int width = mTextView.getWidth();
+	}
 	
 	private void showPop() {
 		MyPop pop = new MyPop(this);
